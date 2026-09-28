@@ -216,7 +216,7 @@ export function SystemProvider({ children }: { children: ReactNode }) {
 
   const activeLanguage = useMemo(() => {
     if (autoLanguage) return languageForState(location.state);
-    return LANGUAGES.find((l) => l.code === manualLanguage) ?? LANGUAGES[1];
+    return LANGUAGES.find((l) => l.code === manualLanguage) ?? LANGUAGES[1]!;
   }, [autoLanguage, manualLanguage, location.state]);
 
   // Seed after mount only, so SSR markup and client markup match.
@@ -285,7 +285,7 @@ export function SystemProvider({ children }: { children: ReactNode }) {
     [rate, fluctRms, energy, thresholds, crossNode],
   );
 
-  const latest = fine.length ? fine[fine.length - 1] : null;
+  const latest = fine.length ? fine[fine.length - 1]! : null;
 
   const stopVoice = useCallback(() => {
     if (typeof window === "undefined") return;
@@ -295,7 +295,7 @@ export function SystemProvider({ children }: { children: ReactNode }) {
 
   const playVoice = useCallback(
     (code: string, level: VoiceLevel) => {
-      const lang = LANGUAGES.find((l) => l.code === code) ?? LANGUAGES[1];
+      const lang = LANGUAGES.find((l) => l.code === code) ?? LANGUAGES[1]!;
       setAlert((a) => ({
         ...a,
         speaker: "PLAYING",
@@ -395,7 +395,7 @@ export function SystemProvider({ children }: { children: ReactNode }) {
         pushEvent(
           detection.level,
           detection.confidence,
-          detection.level === "NORMAL" ? "—" : "Queued",
+          "Queued",
           detection.level === "CRITICAL" || detection.level === "WARNING" ? "Triggered" : "—",
         );
         setAlert((a) => ({

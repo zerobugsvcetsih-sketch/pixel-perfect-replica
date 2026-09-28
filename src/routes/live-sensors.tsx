@@ -36,7 +36,7 @@ export const Route = createFileRoute("/live-sensors")({
 
 function LiveSensors() {
   const { latest, nodes, packets, uptimeS } = useSystem();
-  const a = nodes[0];
+  const a = nodes[0]!;
   const okPackets = packets.filter((p) => p.status === "OK").length;
 
   return (
@@ -151,7 +151,7 @@ function LiveSensors() {
           />
           <div className="px-4 py-3 sm:px-5">
             <Field label="LoRa status" value={<StatusDot status={a.link} />} />
-            <Field label="ESP-NOW status" value={<StatusDot status={nodes[1].link} />} />
+            <Field label="ESP-NOW status" value={<StatusDot status={nodes[1]!.link} />} />
             <Field label="Signal strength (RSSI)" value={`${a.rssi} dBm`} />
             <Field label="SNR" value={`${fmt(a.snr, 1)} dB`} />
             <Field label="Packet count" value={a.packets.toLocaleString()} />

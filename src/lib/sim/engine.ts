@@ -137,8 +137,8 @@ export function spectrum(samples: Sample[], window: number, sampleRateHz: number
     let im = 0;
     for (let i = 0; i < n; i++) {
       const a = (2 * Math.PI * k * i) / n;
-      re += x[i] * Math.cos(a);
-      im -= x[i] * Math.sin(a);
+      re += x[i]! * Math.cos(a);
+      im -= x[i]! * Math.sin(a);
     }
     bins.push({ f: (k * sampleRateHz) / n, mag: (2 * Math.sqrt(re * re + im * im)) / n });
   }
@@ -166,8 +166,8 @@ export function stats(values: number[]) {
 export function changeRate(samples: Sample[], dtMs: number, win = 60) {
   const n = Math.min(win, samples.length);
   if (n < 2) return 0;
-  const a = samples[samples.length - n];
-  const b = samples[samples.length - 1];
+  const a = samples[samples.length - n]!;
+  const b = samples[samples.length - 1]!;
   const minutes = ((b.t - a.t) || dtMs) / 60000;
   return (b.cal - a.cal) / minutes;
 }
@@ -236,7 +236,7 @@ export function detect(
   );
 
   return {
-    level: levels[lvl],
+    level: levels[lvl]!,
     confidence: lvl === 0 ? Math.max(3, Math.round(raw * 30)) : confidence,
     triggers: [
       {

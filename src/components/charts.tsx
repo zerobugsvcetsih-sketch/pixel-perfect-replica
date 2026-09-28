@@ -161,7 +161,7 @@ export function SeriesChart({
 export function RateChart({ data, height = 190 }: { data: Sample[]; height?: number }) {
   const rows = data.map((s, i, arr) => ({
     t: s.t,
-    rate: i === 0 ? 0 : ((s.cal - arr[i - 1].cal) * 60000) / Math.max(1, s.t - arr[i - 1].t),
+    rate: i === 0 ? 0 : ((s.cal - arr[i - 1]!.cal) * 60000) / Math.max(1, s.t - arr[i - 1]!.t),
   }));
   return (
     <ResponsiveContainer width="100%" height={height}>
